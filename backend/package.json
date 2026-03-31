@@ -8,9 +8,9 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "test": "jest --runInBand",
-    "migration:generate": "ts-node -r dotenv/config ./node_modules/.bin/typeorm migration:generate -d data-source.ts",
-    "migration:run": "ts-node -r dotenv/config ./node_modules/.bin/typeorm migration:run -d data-source.ts",
-    "migration:revert": "ts-node -r dotenv/config ./node_modules/.bin/typeorm migration:revert -d data-source.ts",
+    "migration:generate": "ts-node -r dotenv/config node_modules/typeorm/cli.js migration:generate -d data-source.ts",
+    "migration:run": "ts-node -r dotenv/config node_modules/typeorm/cli.js migration:run -d data-source.ts",
+    "migration:revert": "ts-node -r dotenv/config node_modules/typeorm/cli.js migration:revert -d data-source.ts",
     "seed": "ts-node -r dotenv/config src/seeds/seed.ts"
   },
   "jest": {
