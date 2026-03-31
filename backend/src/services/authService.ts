@@ -25,6 +25,13 @@ function generateRefreshToken(payload: TokenPayload): string {
   });
 }
 
+export async function getUserById(id: number) {
+  return userRepo().findOne({
+    where: { id, isActive: true },
+    relations: ['role', 'store'],
+  });
+}
+
 export async function login(email: string, password: string) {
   const user = await userRepo().findOne({
     where: { email, isActive: true },

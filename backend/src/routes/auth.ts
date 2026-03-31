@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { login, logout, refreshAccessToken } from '../services/authService';
+import { login, logout, refreshAccessToken, getUserById } from '../services/authService';
 import { authenticate } from '../middleware/auth';
 
 const router = Router();
@@ -20,6 +20,21 @@ router.post('/login', async (req: Request, res: Response) => {
     console.error('Login error:', err);
     return res.status(500).json({ message: '服务器错误', error: String(err) });
   }
+});
+
+router.get('/me', authenticate, async (req: Request, res: Response) => {
+  const user = await getUserById((req as any).user.id);
+  if (!user) {
+    return res.status(404).json({ message: '用户不存在' });
+  }
+  return res.json({
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    role: user.role.name,
+    storeId: user.storeId ?? null,
+    storeName: user.store?.name ?? null,
+  });
 });
 
 router.post('/logout', authenticate, async (req: Request, res: Response) => {
