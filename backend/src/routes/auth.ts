@@ -1,0 +1,41 @@
+import { Router, Request, Response } from 'express';
+import { login, logout, refreshAccessToken } from '../services/authService';
+import { authenticate } from '../middleware/auth';
+
+const router = Router();
+
+router.post('/login', async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ message: '邮箱和密码不能为空' });
+  }
+
+  const result = await login(email, password);
+  if (!result) {
+    return res.status(401).json({ message: '邮箱或密码错误' });
+  }
+
+  return res.json(result);
+});
+
+router.post('/logout', authenticate, async (req: Request, res: Response) => {
+  const token = req.headers.authorization!.slice(7);
+  await logout(token);
+  return res.json({ message: '已登出' });
+});
+
+router.post('/refresh', async (req: Request, res: Response) => {
+  const { refreshToken } = req.body;
+  if (!refreshToken) {
+    return res.status(400).json({ message: '缺少 refreshToken' });
+  }
+
+  const result = await refreshAccessToken(refreshToken);
+  if (!result) {
+    return res.status(401).json({ message: 'refreshToken 无效或已过期' });
+  }
+
+  return res.json(result);
+});
+
+export default router;
