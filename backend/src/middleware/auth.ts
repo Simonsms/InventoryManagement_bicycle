@@ -23,7 +23,7 @@ export async function authenticate(req: Request, res: Response, next: NextFuncti
   }
 
   try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
+    const payload = jwt.verify(token, process.env.JWT_SECRET!) as unknown as JwtPayload;
     req.user = { id: payload.sub, storeId: payload.storeId, role: payload.role };
     next();
   } catch {

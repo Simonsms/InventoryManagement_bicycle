@@ -7,14 +7,14 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'int', nullable: true })
+  @Column({ name: 'store_id', type: 'int', nullable: true })
   storeId: number | null;
 
   @ManyToOne(() => Store, { nullable: true })
   @JoinColumn({ name: 'store_id' })
   store: Store | null;
 
-  @Column({ type: 'int' })
+  @Column({ name: 'role_id', type: 'int' })
   roleId: number;
 
   @ManyToOne(() => Role)

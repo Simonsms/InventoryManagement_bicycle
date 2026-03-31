@@ -15,13 +15,13 @@ interface TokenPayload {
 
 function generateAccessToken(payload: TokenPayload): string {
   return jwt.sign(payload, process.env.JWT_SECRET!, {
-    expiresIn: process.env.JWT_EXPIRES_IN || '8h',
+    expiresIn: (process.env.JWT_EXPIRES_IN || '8h') as unknown as number,
   });
 }
 
 function generateRefreshToken(payload: TokenPayload): string {
   return jwt.sign(payload, process.env.JWT_SECRET!, {
-    expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '7d',
+    expiresIn: (process.env.JWT_REFRESH_EXPIRES_IN || '7d') as unknown as number,
   });
 }
 
@@ -64,7 +64,7 @@ export async function logout(token: string) {
 
 export async function refreshAccessToken(refreshToken: string) {
   try {
-    const payload = jwt.verify(refreshToken, process.env.JWT_SECRET!) as TokenPayload;
+    const payload = jwt.verify(refreshToken, process.env.JWT_SECRET!) as unknown as TokenPayload;
     const newPayload: TokenPayload = {
       sub: payload.sub,
       storeId: payload.storeId,

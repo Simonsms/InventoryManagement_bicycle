@@ -10,12 +10,16 @@ router.post('/login', async (req: Request, res: Response) => {
     return res.status(400).json({ message: '邮箱和密码不能为空' });
   }
 
-  const result = await login(email, password);
-  if (!result) {
-    return res.status(401).json({ message: '邮箱或密码错误' });
+  try {
+    const result = await login(email, password);
+    if (!result) {
+      return res.status(401).json({ message: '邮箱或密码错误' });
+    }
+    return res.json(result);
+  } catch (err) {
+    console.error('Login error:', err);
+    return res.status(500).json({ message: '服务器错误', error: String(err) });
   }
-
-  return res.json(result);
 });
 
 router.post('/logout', authenticate, async (req: Request, res: Response) => {
