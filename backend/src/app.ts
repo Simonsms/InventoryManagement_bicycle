@@ -13,6 +13,7 @@ import stocktakesRouter from './routes/stocktakes';
 import storesRouter from './routes/stores';
 import usersRouter from './routes/users';
 import importRouter from './routes/import';
+import dashboardRouter from './routes/dashboard';
 
 dotenv.config();
 
@@ -34,5 +35,6 @@ app.use('/api/v1/stocktakes', stocktakesRouter);
 app.use('/api/v1/stores', storesRouter);
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/import', importRouter);
+app.use('/api/v1/dashboard', dashboardRouter);
 
 export default app;

@@ -213,3 +213,15 @@ export async function importInventory(file: File) {
     { method: 'POST', data: formData }
   );
 }
+
+// ---- 仪表盘 ----
+export async function getDashboard() {
+  return request<{
+    totalSkus: number;
+    lowStockCount: number;
+    pendingTransferCount: number;
+    storeStats: { storeId: number; storeName: string; totalQty: number; skuCount: number }[];
+    lowStockItems: API.Inventory[];
+    pendingTransfers: API.Transfer[];
+  }>('/api/v1/dashboard');
+}

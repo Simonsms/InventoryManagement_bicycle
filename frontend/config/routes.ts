@@ -12,7 +12,13 @@ export default [
   },
   {
     path: '/',
-    redirect: '/inventory',
+    redirect: '/dashboard',
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    icon: 'DashboardOutlined',
+    component: './Welcome',
   },
   {
     path: '/inventory',
