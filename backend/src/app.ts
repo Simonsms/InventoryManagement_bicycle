@@ -4,6 +4,14 @@ import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import authRouter from './routes/auth';
+import categoriesRouter from './routes/categories';
+import productsRouter from './routes/products';
+import inventoryRouter from './routes/inventory';
+import movementsRouter from './routes/movements';
+import transfersRouter from './routes/transfers';
+import stocktakesRouter from './routes/stocktakes';
+import storesRouter from './routes/stores';
+import usersRouter from './routes/users';
 
 dotenv.config();
 
@@ -14,6 +22,15 @@ app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:8000', cred
 app.use(express.json());
 
 app.get('/health', (_req, res) => res.json({ status: 'ok' }));
+
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/categories', categoriesRouter);
+app.use('/api/v1/products', productsRouter);
+app.use('/api/v1/inventory', inventoryRouter);
+app.use('/api/v1/movements', movementsRouter);
+app.use('/api/v1/transfers', transfersRouter);
+app.use('/api/v1/stocktakes', stocktakesRouter);
+app.use('/api/v1/stores', storesRouter);
+app.use('/api/v1/users', usersRouter);
 
 export default app;

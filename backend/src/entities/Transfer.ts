@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
 import { Store } from './Store';
 import { User } from './User';
+import { TransferItem } from './TransferItem';
 
 export type TransferStatus = 'pending' | 'approved' | 'rejected' | 'completed';
 
@@ -48,4 +49,7 @@ export class Transfer {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => TransferItem, (item) => item.transfer)
+  items: TransferItem[];
 }
