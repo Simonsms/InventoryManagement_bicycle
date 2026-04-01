@@ -14,6 +14,7 @@ import storesRouter from './routes/stores';
 import usersRouter from './routes/users';
 import importRouter from './routes/import';
 import dashboardRouter from './routes/dashboard';
+import settingsRouter from './routes/settings';
 
 dotenv.config();
 
@@ -36,5 +37,6 @@ app.use('/api/v1/stores', storesRouter);
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/import', importRouter);
 app.use('/api/v1/dashboard', dashboardRouter);
+app.use('/api/v1/settings', settingsRouter);
 
 export default app;

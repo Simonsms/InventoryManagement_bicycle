@@ -225,3 +225,15 @@ export async function getDashboard() {
     pendingTransfers: API.Transfer[];
   }>('/api/v1/dashboard');
 }
+
+// ---- 系统参数 ----
+export async function getSettings() {
+  return request<{ staleDays: number; lowStockDefault: number }>('/api/v1/settings');
+}
+
+export async function updateSettings(data: { staleDays?: number; lowStockDefault?: number }) {
+  return request<{ staleDays: number; lowStockDefault: number }>('/api/v1/settings', {
+    method: 'PUT',
+    data,
+  });
+}

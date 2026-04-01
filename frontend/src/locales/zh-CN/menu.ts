@@ -12,6 +12,7 @@ export default {
   'menu.settings': '系统设置',
   'menu.settings.stores': '门店管理',
   'menu.settings.users': '用户管理',
+  'menu.settings.config': '系统参数',
 
   'menu.register': '注册',
   'menu.register-result': '注册结果',

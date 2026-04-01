@@ -84,6 +84,11 @@ export default [
         name: 'users',
         component: './settings/users',
       },
+      {
+        path: '/settings/config',
+        name: 'config',
+        component: './settings/config',
+      },
     ],
   },
   {
