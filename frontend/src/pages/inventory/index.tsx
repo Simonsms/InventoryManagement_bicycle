@@ -11,7 +11,7 @@ import {
   stockIn,
   stockOut,
 } from '@/services/api';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '@umijs/max';
 import dayjs from 'dayjs';
 
 export default function InventoryPage() {
@@ -19,7 +19,7 @@ export default function InventoryPage() {
   const access = useAccess();
   const { initialState } = useModel('@@initialState');
   const isOwner = initialState?.currentUser?.role === 'shop_owner';
-  const actionRef = useRef<ActionType>();
+  const actionRef = useRef<ActionType | undefined>(undefined);
   const [stores, setStores] = useState<API.Store[]>([]);
   const [products, setProducts] = useState<API.Product[]>([]);
   const [batchDrawer, setBatchDrawer] = useState<{ open: boolean; inv?: API.Inventory }>({ open: false });
@@ -40,15 +40,12 @@ export default function InventoryPage() {
   const columns: ProColumns<API.Inventory>[] = [
     {
       title: '门店',
-      dataIndex: ['store', 'name'],
+      dataIndex: 'storeId',
       width: 100,
       hideInTable: !isOwner,
-      renderFormItem: () =>
-        isOwner ? (
-          <Select allowClear options={stores.map(s => ({ label: s.name, value: s.id }))} />
-        ) : (
-          <></>
-        ),
+      search: isOwner,
+      fieldProps: { options: stores.map(s => ({ label: s.name, value: s.id })), allowClear: true, placeholder: '全部门店' },
+      render: (_, record) => record.store?.name,
     },
     { title: '商品名称', dataIndex: ['product', 'name'], ellipsis: true },
     { title: '品牌', dataIndex: ['product', 'brand'], width: 90, search: false },

@@ -14,7 +14,7 @@ const ROLE_NAMES: Record<API.RoleName, { text: string; color: string }> = {
 export default function UsersPage() {
   const { message, modal } = App.useApp();
   const { initialState } = useModel('@@initialState');
-  const actionRef = useRef<ActionType>();
+  const actionRef = useRef<ActionType | undefined>(undefined);
   const [roles, setRoles] = useState<API.Role[]>([]);
   const [stores, setStores] = useState<API.Store[]>([]);
   const [form] = Form.useForm();

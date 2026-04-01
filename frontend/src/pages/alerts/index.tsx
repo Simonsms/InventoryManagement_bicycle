@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '@umijs/max';
 import { App, Button, Space, Tabs, Tag } from 'antd';
 import { useRef, useState } from 'react';
 import { ActionType, ProTable } from '@ant-design/pro-components';
@@ -7,7 +7,7 @@ import { getLowStockAlerts, getStaleInventory } from '@/services/api';
 
 export default function AlertsPage() {
   const [activeTab, setActiveTab] = useState('lowstock');
-  const actionRef = useRef<ActionType>();
+  const actionRef = useRef<ActionType | undefined>(undefined);
   const navigate = useNavigate();
 
   const lowStockColumns: ProColumns<API.Inventory>[] = [

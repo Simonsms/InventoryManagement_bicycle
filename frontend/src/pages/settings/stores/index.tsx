@@ -6,7 +6,7 @@ import { createStore, deactivateStore, getStores, updateStore } from '@/services
 
 export default function StoresPage() {
   const { message, modal } = App.useApp();
-  const actionRef = useRef<ActionType>();
+  const actionRef = useRef<ActionType | undefined>(undefined);
   const [editingStore, setEditingStore] = useState<API.Store | null>(null);
   const [form] = Form.useForm();
   const [modalOpen, setModalOpen] = useState(false);

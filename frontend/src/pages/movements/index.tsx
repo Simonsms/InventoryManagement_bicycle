@@ -14,7 +14,7 @@ const TYPE_LABELS: Record<API.MovementType, { text: string; color: string }> = {
 };
 
 export default function MovementsPage() {
-  const actionRef = useRef<ActionType>();
+  const actionRef = useRef<ActionType | undefined>(undefined);
 
   const columns: ProColumns<API.StockMovement>[] = [
     {
@@ -40,11 +40,8 @@ export default function MovementsPage() {
       title: '类型',
       dataIndex: 'type',
       width: 110,
-      renderFormItem: () => (
-        <Select
-          allowClear
-          options={Object.entries(TYPE_LABELS).map(([v, { text }]) => ({ label: text, value: v }))}
-        />
+      valueEnum: Object.fromEntries(
+        Object.entries(TYPE_LABELS).map(([v, { text }]) => [v, { text }])
       ),
       render: (_, r) => {
         const info = TYPE_LABELS[r.type];

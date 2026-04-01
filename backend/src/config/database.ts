@@ -2,6 +2,9 @@ import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
+const isProd = process.env.NODE_ENV === 'production';
+const ext = isProd ? 'js' : 'ts';
+
 export const AppDataSource = new DataSource({
   type: 'postgres',
   host: process.env.DB_HOST || 'localhost',
@@ -10,7 +13,7 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USER || 'postgres',
   password: process.env.DB_PASSWORD || '',
   synchronize: false,
-  logging: process.env.NODE_ENV === 'development',
-  entities: [__dirname + '/../entities/*.ts'],
-  migrations: [__dirname + '/../migrations/*.ts'],
+  logging: !isProd,
+  entities: [__dirname + `/../entities/*.${ext}`],
+  migrations: [__dirname + `/../migrations/*.${ext}`],
 });

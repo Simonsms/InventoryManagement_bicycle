@@ -14,7 +14,7 @@ import {
 export default function ProductsPage() {
   const { message, modal } = App.useApp();
   const access = useAccess();
-  const actionRef = useRef<ActionType>();
+  const actionRef = useRef<ActionType | undefined>(undefined);
   const [categories, setCategories] = useState<API.Category[]>([]);
   const [editingProduct, setEditingProduct] = useState<API.Product | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -30,11 +30,10 @@ export default function ProductsPage() {
     { title: '型号', dataIndex: 'modelNumber', width: 120 },
     {
       title: '分类',
-      dataIndex: ['category', 'name'],
+      dataIndex: 'categoryId',
       width: 100,
-      renderFormItem: () => (
-        <Select allowClear placeholder="选择分类" options={categories.map(c => ({ label: c.name, value: c.id }))} />
-      ),
+      fieldProps: { options: categories.map(c => ({ label: c.name, value: c.id })), allowClear: true, placeholder: '选择分类' },
+      render: (_, record) => record.category?.name,
     },
     { title: '预警阈值', dataIndex: 'lowStockThreshold', width: 90, search: false },
     { title: '质保(月)', dataIndex: 'warrantyMonths', width: 90, search: false },

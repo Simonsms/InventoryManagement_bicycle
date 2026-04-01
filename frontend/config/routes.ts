@@ -52,6 +52,13 @@ export default [
     component: './products',
   },
   {
+    path: '/import',
+    name: 'import',
+    icon: 'ImportOutlined',
+    access: 'isAdminOrOwner',
+    component: './import',
+  },
+  {
     path: '/settings',
     name: 'settings',
     icon: 'SettingOutlined',

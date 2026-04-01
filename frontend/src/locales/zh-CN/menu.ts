@@ -7,6 +7,7 @@ export default {
   'menu.stocktakes': '盘点管理',
   'menu.alerts': '预警中心',
   'menu.products': '商品管理',
+  'menu.import': '批量导入',
   'menu.settings': '系统设置',
   'menu.settings.stores': '门店管理',
   'menu.settings.users': '用户管理',

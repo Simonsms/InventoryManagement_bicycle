@@ -194,3 +194,22 @@ export async function updateUser(id: number, data: { name?: string; roleId?: num
 export async function deactivateUser(id: number) {
   return request(`/api/v1/users/${id}`, { method: 'DELETE' });
 }
+
+// ---- Excel 导入 ----
+export async function importProducts(file: File) {
+  const formData = new FormData();
+  formData.append('file', file);
+  return request<{ success: number; failed: number; errors: string[] }>(
+    '/api/v1/import/products',
+    { method: 'POST', data: formData }
+  );
+}
+
+export async function importInventory(file: File) {
+  const formData = new FormData();
+  formData.append('file', file);
+  return request<{ success: number; failed: number; errors: string[] }>(
+    '/api/v1/import/inventory',
+    { method: 'POST', data: formData }
+  );
+}

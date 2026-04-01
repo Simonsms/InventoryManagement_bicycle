@@ -28,7 +28,7 @@ export default function TransfersPage() {
   const currentUser = initialState?.currentUser;
   const isOwner = currentUser?.role === 'shop_owner';
   const isAdminOrOwner = isOwner || currentUser?.role === 'store_admin';
-  const actionRef = useRef<ActionType>();
+  const actionRef = useRef<ActionType | undefined>(undefined);
   const [activeTab, setActiveTab] = useState('pending');
   const [stores, setStores] = useState<API.Store[]>([]);
   const [products, setProducts] = useState<API.Product[]>([]);

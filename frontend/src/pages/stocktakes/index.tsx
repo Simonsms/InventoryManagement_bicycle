@@ -17,7 +17,7 @@ export default function StocktakesPage() {
   const { initialState } = useModel('@@initialState');
   const currentUser = initialState?.currentUser;
   const isAdminOrOwner = currentUser?.role === 'shop_owner' || currentUser?.role === 'store_admin';
-  const actionRef = useRef<ActionType>();
+  const actionRef = useRef<ActionType | undefined>(undefined);
   const [itemsDrawer, setItemsDrawer] = useState<{ open: boolean; stocktake?: API.Stocktake }>({ open: false });
   const [items, setItems] = useState<(API.StocktakeItem & { editQty?: number })[]>([]);
   const [saving, setSaving] = useState(false);
