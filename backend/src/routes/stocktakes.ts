@@ -18,7 +18,7 @@ router.get('/', authenticate, storeScope, async (req: Request, res: Response) =>
     .leftJoinAndSelect('st.creator', 'c');
 
   if (req.scopedStoreId) {
-    qb.andWhere('st.storeId = :sid', { sid: req.scopedStoreId });
+    qb.andWhere('st.store_id = :sid', { sid: req.scopedStoreId });
   }
   if (req.query.status) {
     qb.andWhere('st.status = :status', { status: req.query.status });

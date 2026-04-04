@@ -3,24 +3,24 @@ import { Store } from './Store';
 import { Product } from './Product';
 
 @Entity('inventory')
-@Unique(['storeId', 'productId'])
+@Unique(['store', 'product'])
 export class Inventory {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column()
-  storeId: number;
 
   @ManyToOne(() => Store)
   @JoinColumn({ name: 'store_id' })
   store: Store;
 
-  @Column()
-  productId: number;
+  @Column({ name: 'store_id' })
+  storeId: number;
 
   @ManyToOne(() => Product)
   @JoinColumn({ name: 'product_id' })
   product: Product;
+
+  @Column({ name: 'product_id' })
+  productId: number;
 
   @Column({ default: 0 })
   quantity: number;

@@ -8,7 +8,7 @@ export class Category {
   @Column()
   name: string;
 
-  @Column({ type: 'int', nullable: true })
+  @Column({ name: 'parent_id', type: 'int', nullable: true })
   parentId: number | null;
 
   @ManyToOne(() => Category, { nullable: true })

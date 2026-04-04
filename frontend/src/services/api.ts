@@ -105,18 +105,19 @@ export async function getMovements(params?: {
 }
 
 // ---- 调拨 ----
-export async function getTransfers(params?: { status?: string; store_id?: number }) {
+export async function getTransfers(params?: { status?: string; store_id?: number; type?: API.TransferType }) {
   return request<API.Transfer[]>('/api/v1/transfers', { params });
 }
 
 export async function createTransfer(data: {
+  type: API.TransferType;
+  fromStoreId?: number;
   toStoreId: number;
   items: { productId: number; quantity: number }[];
+  reasonCode: string;
   note?: string;
-  store_id?: number;
 }) {
-  const { store_id, ...body } = data;
-  return request('/api/v1/transfers', { method: 'POST', data: body, params: store_id ? { store_id } : {} });
+  return request('/api/v1/transfers', { method: 'POST', data });
 }
 
 export async function approveTransfer(id: number) {
@@ -127,8 +128,16 @@ export async function rejectTransfer(id: number) {
   return request(`/api/v1/transfers/${id}/reject`, { method: 'PUT' });
 }
 
-export async function completeTransfer(id: number) {
-  return request(`/api/v1/transfers/${id}/complete`, { method: 'PUT' });
+export async function shipTransfer(id: number) {
+  return request(`/api/v1/transfers/${id}/ship`, { method: 'PUT' });
+}
+
+export async function receiveTransfer(id: number) {
+  return request(`/api/v1/transfers/${id}/receive`, { method: 'PUT' });
+}
+
+export async function executeTransferAdjustment(id: number) {
+  return request(`/api/v1/transfers/${id}/execute-adjustment`, { method: 'PUT' });
 }
 
 // ---- 盘点 ----
@@ -205,12 +214,12 @@ export async function importProducts(file: File) {
   );
 }
 
-export async function importInventory(file: File) {
+export async function importInventory(file: File, storeId?: number) {
   const formData = new FormData();
   formData.append('file', file);
   return request<{ success: number; failed: number; errors: string[] }>(
     '/api/v1/import/inventory',
-    { method: 'POST', data: formData }
+    { method: 'POST', data: formData, params: storeId ? { store_id: storeId } : undefined }
   );
 }
 

@@ -132,10 +132,10 @@ router.get('/', authenticate, storeScope, async (req: Request, res: Response) =>
     .leftJoinAndSelect('m.operator', 'u');
 
   if (req.scopedStoreId) {
-    qb.andWhere('m.storeId = :storeId', { storeId: req.scopedStoreId });
+    qb.andWhere('m.store_id = :storeId', { storeId: req.scopedStoreId });
   }
   if (req.query.product_id) {
-    qb.andWhere('m.productId = :pid', { pid: parseInt(req.query.product_id as string, 10) });
+    qb.andWhere('m.product_id = :pid', { pid: parseInt(req.query.product_id as string, 10) });
   }
   if (req.query.type) {
     qb.andWhere('m.type = :type', { type: req.query.type });

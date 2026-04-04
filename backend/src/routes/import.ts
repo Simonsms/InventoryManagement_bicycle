@@ -102,11 +102,19 @@ router.post(
       return res.status(400).json({ error: '请上传 Excel 文件' });
     }
 
-    if (!req.user?.storeId) {
-      return res.status(400).json({ error: '当前用户未绑定门店' });
+    // 获取门店ID：店长从用户信息获取，店主从请求参数获取
+    let storeId: number | undefined;
+    if (req.user?.role === 'shop_owner') {
+      storeId = req.query.store_id ? parseInt(req.query.store_id as string, 10) : undefined;
+      if (!storeId) {
+        return res.status(400).json({ error: '店主请指定门店ID（store_id参数）' });
+      }
+    } else {
+      storeId = req.user?.storeId ?? undefined;
+      if (!storeId) {
+        return res.status(400).json({ error: '当前用户未绑定门店' });
+      }
     }
-
-    const storeId = req.user.storeId;
 
     try {
       const workbook = xlsx.read(req.file.buffer, { type: 'buffer' });

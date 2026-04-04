@@ -113,7 +113,9 @@ declare namespace API {
     createdAt: string;
   };
 
-  type TransferStatus = 'pending' | 'approved' | 'rejected' | 'completed';
+  type TransferType = 'physical_transfer' | 'book_adjustment';
+
+  type TransferStatus = 'pending' | 'approved' | 'in_transit' | 'rejected' | 'completed';
 
   type TransferItem = {
     id: number;
@@ -129,11 +131,21 @@ declare namespace API {
     fromStore?: Store;
     toStoreId: number;
     toStore?: Store;
+    type: TransferType;
     status: TransferStatus;
     requestedBy: number;
     requester?: User;
     approvedBy: number | null;
     approver?: User | null;
+    approvedAt: string | null;
+    shippedBy: number | null;
+    shippedAt: string | null;
+    receivedBy: number | null;
+    receivedAt: string | null;
+    completedBy: number | null;
+    completedAt: string | null;
+    selfApprovedException: boolean;
+    reasonCode: string | null;
     note: string | null;
     items?: TransferItem[];
     createdAt: string;

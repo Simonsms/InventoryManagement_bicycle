@@ -24,6 +24,20 @@ describe('POST /api/v1/auth/login', () => {
     expect(res.body.user.role).toBe('shop_owner');
   });
 
+  it('连续登录会生成不同的 access token', async () => {
+    const firstRes = await request(app)
+      .post('/api/v1/auth/login')
+      .send({ email: 'admin@bicycle.com', password: 'Admin@123456' });
+
+    const secondRes = await request(app)
+      .post('/api/v1/auth/login')
+      .send({ email: 'admin@bicycle.com', password: 'Admin@123456' });
+
+    expect(firstRes.status).toBe(200);
+    expect(secondRes.status).toBe(200);
+    expect(firstRes.body.accessToken).not.toBe(secondRes.body.accessToken);
+  });
+
   it('错误密码返回 401', async () => {
     const res = await request(app)
       .post('/api/v1/auth/login')

@@ -9,7 +9,7 @@ export class Stocktake {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ name: 'store_id' })
   storeId: number;
 
   @ManyToOne(() => Store)
@@ -19,14 +19,14 @@ export class Stocktake {
   @Column({ default: 'open' })
   status: StocktakeStatus;
 
-  @Column()
+  @Column({ name: 'created_by' })
   createdBy: number;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'created_by' })
   creator: User;
 
-  @Column({ type: 'int', nullable: true })
+  @Column({ name: 'completed_by', type: 'int', nullable: true })
   completedBy: number | null;
 
   @ManyToOne(() => User, { nullable: true })
