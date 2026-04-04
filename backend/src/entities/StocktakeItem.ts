@@ -7,14 +7,14 @@ export class StocktakeItem {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ name: 'stocktake_id' })
   stocktakeId: number;
 
   @ManyToOne(() => Stocktake)
   @JoinColumn({ name: 'stocktake_id' })
   stocktake: Stocktake;
 
-  @Column()
+  @Column({ name: 'product_id' })
   productId: number;
 
   @ManyToOne(() => Product)

@@ -30,7 +30,7 @@ router.get('/', authenticate, storeScope, async (req: Request, res: Response) =>
     .where('p.isActive = true')
     .andWhere('inv.quantity <= p.lowStockThreshold');
   if (req.scopedStoreId) {
-    lowStockQb.andWhere('inv.storeId = :sid', { sid: req.scopedStoreId });
+    lowStockQb.andWhere('inv.store_id = :sid', { sid: req.scopedStoreId });
   }
   const lowStockCount = await lowStockQb.getCount();
 
@@ -40,7 +40,7 @@ router.get('/', authenticate, storeScope, async (req: Request, res: Response) =>
     .where('t.status = :status', { status: 'pending' });
   if (req.scopedStoreId) {
     pendingTransferQb.andWhere(
-      '(t.fromStoreId = :sid OR t.toStoreId = :sid)',
+      '(t.from_store_id = :sid OR t.to_store_id = :sid)',
       { sid: req.scopedStoreId }
     );
   }
@@ -53,12 +53,12 @@ router.get('/', authenticate, storeScope, async (req: Request, res: Response) =>
     .select('s.id', 'storeId')
     .addSelect('s.name', 'storeName')
     .addSelect('SUM(inv.quantity)', 'totalQty')
-    .addSelect('COUNT(DISTINCT inv.productId)', 'skuCount')
+    .addSelect('COUNT(DISTINCT inv.product_id)', 'skuCount')
     .groupBy('s.id')
     .addGroupBy('s.name')
     .orderBy('s.id', 'ASC');
   if (req.scopedStoreId) {
-    storeStatsQb.andWhere('inv.storeId = :sid', { sid: req.scopedStoreId });
+    storeStatsQb.andWhere('inv.store_id = :sid', { sid: req.scopedStoreId });
   }
   const storeStats = await storeStatsQb.getRawMany();
 
@@ -69,7 +69,7 @@ router.get('/', authenticate, storeScope, async (req: Request, res: Response) =>
     .leftJoinAndSelect('inv.store', 's')
     .where('p.isActive = true')
     .andWhere('inv.quantity <= p.lowStockThreshold')
-    .andWhere(req.scopedStoreId ? 'inv.storeId = :sid' : '1=1', { sid: req.scopedStoreId })
+    .andWhere(req.scopedStoreId ? 'inv.store_id = :sid' : '1=1', { sid: req.scopedStoreId })
     .orderBy('inv.quantity', 'ASC')
     .limit(5)
     .getMany();
@@ -83,7 +83,7 @@ router.get('/', authenticate, storeScope, async (req: Request, res: Response) =>
     .where('t.status = :status', { status: 'pending' })
     .andWhere(
       req.scopedStoreId
-        ? '(t.fromStoreId = :sid OR t.toStoreId = :sid)'
+        ? '(t.from_store_id = :sid OR t.to_store_id = :sid)'
         : '1=1',
       { sid: req.scopedStoreId }
     )

@@ -11,21 +11,21 @@ export class StockMovement {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ name: 'store_id' })
   storeId: number;
 
   @ManyToOne(() => Store)
   @JoinColumn({ name: 'store_id' })
   store: Store;
 
-  @Column()
+  @Column({ name: 'product_id' })
   productId: number;
 
   @ManyToOne(() => Product)
   @JoinColumn({ name: 'product_id' })
   product: Product;
 
-  @Column({ type: 'int', nullable: true })
+  @Column({ name: 'batch_id', type: 'int', nullable: true })
   batchId: number | null;
 
   @ManyToOne(() => InventoryBatch, { nullable: true })
@@ -44,7 +44,7 @@ export class StockMovement {
   @Column({ type: 'varchar', nullable: true })
   note: string | null;
 
-  @Column()
+  @Column({ name: 'operated_by' })
   operatedBy: number;
 
   @ManyToOne(() => User)

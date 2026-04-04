@@ -6,7 +6,7 @@ export class Product {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ name: 'category_id' })
   categoryId: number;
 
   @ManyToOne(() => Category)

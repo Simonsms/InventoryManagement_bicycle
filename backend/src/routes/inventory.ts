@@ -19,10 +19,10 @@ router.get('/', authenticate, storeScope, async (req: Request, res: Response) =>
 
   // storeScope 已注入 scopedStoreId（店长可为空表示所有门店）
   if (req.scopedStoreId) {
-    qb.andWhere('inv.storeId = :storeId', { storeId: req.scopedStoreId });
+    qb.andWhere('inv.store_id = :storeId', { storeId: req.scopedStoreId });
   }
   if (req.query.category_id) {
-    qb.andWhere('p.categoryId = :cid', { cid: parseInt(req.query.category_id as string, 10) });
+    qb.andWhere('p.category_id = :cid', { cid: parseInt(req.query.category_id as string, 10) });
   }
   if (req.query.brand) {
     qb.andWhere('p.brand ILIKE :brand', { brand: `%${req.query.brand}%` });
@@ -77,7 +77,7 @@ router.get('/alerts', authenticate, storeScope, requireRole('shop_owner', 'store
     .andWhere('inv.quantity <= p.lowStockThreshold');
 
   if (req.scopedStoreId) {
-    qb.andWhere('inv.storeId = :storeId', { storeId: req.scopedStoreId });
+    qb.andWhere('inv.store_id = :storeId', { storeId: req.scopedStoreId });
   }
 
   const alerts = await qb.orderBy('inv.quantity', 'ASC').getMany();
@@ -104,12 +104,12 @@ router.get('/stale', authenticate, storeScope, requireRole('shop_owner', 'store_
         WHERE sm.store_id = inv.store_id
           AND sm.product_id = inv.product_id
           AND sm.type IN ('out', 'transfer_out')
-          AND sm.created_at >= :cutoff
+          AND sm."createdAt" >= :cutoff
       )
     `, { cutoff });
 
   if (req.scopedStoreId) {
-    qb.andWhere('inv.storeId = :storeId', { storeId: req.scopedStoreId });
+    qb.andWhere('inv.store_id = :storeId', { storeId: req.scopedStoreId });
   }
 
   const stale = await qb.orderBy('inv.updatedAt', 'ASC').getMany();

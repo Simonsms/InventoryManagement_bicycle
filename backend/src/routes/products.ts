@@ -14,7 +14,7 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
     .where('p.isActive = true');
 
   if (req.query.category_id) {
-    qb.andWhere('p.categoryId = :cid', { cid: parseInt(req.query.category_id as string, 10) });
+    qb.andWhere('p.category_id = :cid', { cid: parseInt(req.query.category_id as string, 10) });
   }
   if (req.query.brand) {
     qb.andWhere('p.brand ILIKE :brand', { brand: `%${req.query.brand}%` });

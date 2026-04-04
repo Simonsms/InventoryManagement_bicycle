@@ -7,14 +7,14 @@ export class TransferItem {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ name: 'transfer_id' })
   transferId: number;
 
   @ManyToOne(() => Transfer)
   @JoinColumn({ name: 'transfer_id' })
   transfer: Transfer;
 
-  @Column()
+  @Column({ name: 'product_id' })
   productId: number;
 
   @ManyToOne(() => Product)

@@ -6,7 +6,7 @@ export class InventoryBatch {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ name: 'inventory_id' })
   inventoryId: number;
 
   @ManyToOne(() => Inventory)
