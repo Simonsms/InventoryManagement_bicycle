@@ -21,6 +21,19 @@ export default [
     component: './Welcome',
   },
   {
+    path: '/products',
+    name: 'products',
+    icon: 'ShoppingOutlined',
+    component: './products',
+  },
+  {
+    path: '/import',
+    name: 'import',
+    icon: 'ImportOutlined',
+    access: 'isAdminOrOwner',
+    component: './import',
+  },
+  {
     path: '/inventory',
     name: 'inventory',
     icon: 'DatabaseOutlined',
@@ -50,19 +63,6 @@ export default [
     icon: 'BellOutlined',
     access: 'isAdminOrOwner',
     component: './alerts',
-  },
-  {
-    path: '/products',
-    name: 'products',
-    icon: 'ShoppingOutlined',
-    component: './products',
-  },
-  {
-    path: '/import',
-    name: 'import',
-    icon: 'ImportOutlined',
-    access: 'isAdminOrOwner',
-    component: './import',
   },
   {
     path: '/settings',
