@@ -19,9 +19,22 @@ import settingsRouter from './routes/settings';
 dotenv.config();
 
 const app = express();
+const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:8000')
+  .split(',')
+  .map(origin => origin.trim())
+  .filter(Boolean);
 
 app.use(helmet());
-app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:8000', credentials: true }));
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+      return;
+    }
+    callback(new Error(`Origin ${origin} is not allowed by CORS`));
+  },
+  credentials: true,
+}));
 app.use(express.json());
 
 app.get('/health', (_req, res) => res.json({ status: 'ok' }));

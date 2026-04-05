@@ -1,6 +1,5 @@
 node_modules
 dist
-.env
+.umi
+.cache
 npm-debug.log
-coverage
-tests
