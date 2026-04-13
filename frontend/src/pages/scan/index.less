@@ -1,0 +1,124 @@
+.scan-page {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding-bottom: 20px;
+
+  .scan-header {
+    background: #fff;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    h2 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+  }
+
+  .scan-content {
+    padding: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .scanner-card {
+    margin-bottom: 16px;
+    border-radius: 8px;
+    overflow: hidden;
+
+    #qr-reader {
+      position: relative;
+      min-height: 300px;
+      background: #000;
+      border-radius: 4px;
+      overflow: hidden;
+
+      video {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+    }
+
+    .scanner-placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #fafafa;
+      color: #999;
+
+      p {
+        margin-top: 16px;
+        font-size: 14px;
+      }
+    }
+
+    .scanned-result {
+      margin-top: 16px;
+      padding: 12px;
+      background: #f6ffed;
+      border: 1px solid #b7eb8f;
+      border-radius: 4px;
+      text-align: center;
+
+      p {
+        margin: 0;
+        color: #52c41a;
+        font-size: 14px;
+
+        strong {
+          font-size: 16px;
+          margin-left: 8px;
+        }
+      }
+    }
+  }
+
+  .form-card {
+    border-radius: 8px;
+
+    .ant-form-item {
+      margin-bottom: 20px;
+    }
+
+    .ant-form-item-label > label {
+      font-weight: 500;
+      font-size: 15px;
+    }
+  }
+}
+
+// 移动端适配
+@media (max-width: 768px) {
+  .scan-page {
+    .scan-header {
+      padding: 12px 16px;
+
+      h2 {
+        font-size: 16px;
+      }
+    }
+
+    .scan-content {
+      padding: 12px;
+    }
+
+    .scanner-card {
+      #qr-reader {
+        min-height: 250px;
+      }
+    }
+  }
+}

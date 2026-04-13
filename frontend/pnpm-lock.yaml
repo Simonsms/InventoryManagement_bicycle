@@ -26,6 +26,9 @@ importers:
       dayjs:
         specifier: ^1.11.19
         version: 1.11.20
+      html5-qrcode:
+        specifier: ^2.3.8
+        version: 2.3.8
       react:
         specifier: ^19.2.4
         version: 19.2.4
@@ -6306,6 +6309,9 @@ packages:
     engines: {node: '>=10.13.0'}
     peerDependencies:
       webpack: ^5.20.0
+
+  html5-qrcode@2.3.8:
+    resolution: {integrity: sha512-jsr4vafJhwoLVEDW3n1KvPnCCXWaQfRng0/EEYk1vNcQGcG/htAdhJX0be8YyqMoSz7+hZvOZSTAepsabiuhiQ==}
 
   htmlparser2@3.10.1:
     resolution: {integrity: sha512-IgieNijUMbkDovyoKObU1DUhm1iwNYE/fuifEoEHfd1oZKZDaONBSkal7Y01shxsM49R4XaMdGez3WnF9UfiCQ==}
@@ -15462,7 +15468,7 @@ snapshots:
 
   '@types/history@5.0.0':
     dependencies:
-      history: 4.10.1
+      history: 5.3.0
 
   '@types/hoist-non-react-statics@3.3.7(@types/react@19.2.14)':
     dependencies:
@@ -15565,7 +15571,7 @@ snapshots:
       '@types/history': 4.7.11
       '@types/react': 19.2.14
       '@types/react-router': 5.1.20
-      redux: 3.7.2
+      redux: 4.2.1
 
   '@types/react-router@5.1.20':
     dependencies:
@@ -20232,6 +20238,8 @@ snapshots:
       pretty-error: 4.0.0
       tapable: 2.3.2
       webpack: 5.105.4
+
+  html5-qrcode@2.3.8: {}
 
   htmlparser2@3.10.1:
     dependencies:

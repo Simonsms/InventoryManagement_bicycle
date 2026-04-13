@@ -1,8 +1,9 @@
-import { useAccess, useModel } from '@umijs/max';
+import { useAccess, useModel, history } from '@umijs/max';
 import { App, Button, Form, Input, InputNumber, Modal, Select, Space, Tag } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import { ActionType, ProTable } from '@ant-design/pro-components';
 import type { ProColumns } from '@ant-design/pro-components';
+import { ScanOutlined } from '@ant-design/icons';
 import {
   createProduct,
   deactivateProduct,
@@ -108,6 +109,13 @@ export default function ProductsPage() {
         toolBarRender={() =>
           access.isAdminOrOwner
             ? [
+                <Button
+                  key="scan"
+                  icon={<ScanOutlined />}
+                  onClick={() => history.push('/scan')}
+                >
+                  扫码录入
+                </Button>,
                 <Button
                   key="add"
                   type="primary"

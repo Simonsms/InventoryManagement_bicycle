@@ -11,6 +11,12 @@ export default [
     ],
   },
   {
+    path: '/scan',
+    name: 'scan',
+    layout: false,
+    component: './scan',
+  },
+  {
     path: '/',
     redirect: '/dashboard',
   },
